@@ -1,16 +1,17 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import express from "express";
+import dotenv from "dotenv";
 
-const app = express()
+import blogRoutes from "./routes/blog.routes.js";
+
 
 dotenv.config({
-    path: './.env'
-})
+    path: "./.env",
+  });
+
+const app = express();
+app.use(express.json());
 
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
+app.use("/api/v1/blog", blogRoutes);
 
 export default app;

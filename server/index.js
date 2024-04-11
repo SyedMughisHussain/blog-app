@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import blogRoutes from "./routes/blog.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -17,6 +18,7 @@ app.use(cors({
   })
 );
 app.use(express.static("public"));
+app.use(cookieParser())
 
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/auth", userRoutes);

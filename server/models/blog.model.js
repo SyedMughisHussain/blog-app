@@ -11,11 +11,14 @@ const blogSchema = new Schema(
       type: String,
       required: true,
     },
-    // author: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
+    userAvatarUrl: { 
+      type: String,
+      required: true,
+    },
+    author: {
+      type: mongoose.Types.ObjectId,
+      ref: "User"
+    },
   },
   {
     timestamps: true,

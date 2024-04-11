@@ -77,4 +77,12 @@ const signIn = asyncHandler(async (req, res) => {
   });
 });
 
-export { signUp, signIn };
+const getUserProfile = asyncHandler(async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "User profile fetched successfully",
+    user: req.user,
+  });
+});
+
+export { signUp, signIn, getUserProfile };

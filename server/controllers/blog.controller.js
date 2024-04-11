@@ -1,11 +1,16 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import Blog from "../models/blog.model.js";
+import { request } from "express";
 
 const getLoginUserBlogs = asyncHandler(async (req, res) => {
+console.log(req.user._id);
+  const blogs = await Blog.find({authorId: req.user._id}) 
+
   return res.status(200).json({
-    message: "User fetched successfully",
-    data: req.user,
+    success: true,
+    message: "Blogs fetched successfully",
+    blogs,
   });
 });
 
@@ -21,12 +26,18 @@ const getAllBlogs = asyncHandler(async (req, res) => {
 
 const createBlog = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
+  console.log(req.user);
 
-  if (!title || !description) {
+  if (!title || !description ) {
     throw new ApiError("Please provide title and description.", 400);
   }
 
-  const blog = await Blog.create({ title, description });
+  const blog = await Blog.create({
+    title,
+    description,
+    userAvatarUrl: req.user.avatar,
+    authorId: req.user._id,
+  });
 
   return res.status(201).json({
     success: true,

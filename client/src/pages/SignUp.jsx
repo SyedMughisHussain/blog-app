@@ -1,21 +1,41 @@
 import React, { useRef, useState } from "react";
 import Header from "../components/SignUp/Header";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const [image, setImage] = useState(null);
+  const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
+  const [image, setImage] = useState();
   const firstName = useRef();
   const lastName = useRef();
   const email = useRef();
   const password = useRef();
 
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
-    console.log(firstName.current.value);
-    console.log(lastName.current.value);
-    console.log(email.current.value);
-    console.log(password.current.value);
-    console.log(image);
+
+    const formData = new FormData();
+    formData.append("firstName", firstName.current.value);
+    formData.append("lastName", lastName.current.value);
+    formData.append("email", email.current.value);
+    formData.append("password", password.current.value);
+    formData.append("avatar", image);
+    axios
+      .post("http://localhost:3000/api/v1/auth/signup", formData)
+      .then((response) => {
+        console.log(response.data.data.user);
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -74,6 +94,7 @@ const SignUp = () => {
               <input
                 type="file"
                 required
+                name="avatar"
                 onChange={(event) => {
                   setImage(event.target.files[0]);
                 }}
@@ -81,14 +102,21 @@ const SignUp = () => {
               />
             </div>
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
+            {loading ? (
+              <button className="btn w-full bg-indigo-600">
+                <span className="loading loading-spinner"></span>
+                Signing Up
               </button>
-            </div>
+            ) : (
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
           </form>
         </div>
       </div>

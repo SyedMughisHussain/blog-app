@@ -73,6 +73,7 @@ const signIn = asyncHandler(async (req, res) => {
     message: "User logged in successfully",
     data: {
       user,
+      token,
     },
   });
 });

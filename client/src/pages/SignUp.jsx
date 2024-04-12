@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Header from "../components/SignUp/Header";
 
 const SignUp = () => {
+  const [image, setImage] = useState(null);
 
-   
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    }
+  const firstName = useRef();
+  const lastName = useRef();
+  const email = useRef();
+  const password = useRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(firstName.current.value);
+    console.log(lastName.current.value);
+    console.log(email.current.value);
+    console.log(password.current.value);
+    console.log(image);
+  };
 
   return (
     <>
@@ -24,6 +34,7 @@ const SignUp = () => {
               <input
                 type="text"
                 required
+                ref={firstName}
                 placeholder="First Name"
                 className="input input-bordered input-primary w-full "
               />
@@ -33,6 +44,7 @@ const SignUp = () => {
               <input
                 type="text"
                 required
+                ref={lastName}
                 placeholder="Last Name"
                 className="input input-bordered input-primary w-full "
               />
@@ -42,6 +54,7 @@ const SignUp = () => {
               <input
                 type="email"
                 required
+                ref={email}
                 placeholder="Email"
                 className="input input-bordered input-primary w-full "
               />
@@ -51,6 +64,7 @@ const SignUp = () => {
               <input
                 type="password"
                 required
+                ref={password}
                 placeholder="Password"
                 className="input input-bordered input-primary w-full "
               />
@@ -59,6 +73,10 @@ const SignUp = () => {
             <div className="mt-2">
               <input
                 type="file"
+                required
+                onChange={(event) => {
+                  setImage(event.target.files[0]);
+                }}
                 className="file-input file-input-bordered file-input-primary w-full"
               />
             </div>

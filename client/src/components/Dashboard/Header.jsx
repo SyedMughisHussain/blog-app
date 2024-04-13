@@ -48,7 +48,11 @@ const Header = () => {
       </div>
       <div className="navbar-end">
         <Link to={"/profile"} className="text-white md:mr-10">
-          helo
+          {data ? (
+            data.firstName + " " + data.lastName
+          ) : (
+            <span className="loading loading-spinner"></span>
+          )}
         </Link>
         <button
           className="text-white md:mr-10"

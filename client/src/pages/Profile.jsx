@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from '../components/Dashboard/Header'
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <>
+    <Header />
+    </>
   )
 }
 

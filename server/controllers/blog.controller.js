@@ -3,8 +3,8 @@ import { ApiError } from "../utils/ApiError.js";
 import Blog from "../models/blog.model.js";
 
 const getLoginUserBlogs = asyncHandler(async (req, res) => {
-console.log(req.user._id);
-  const blogs = await Blog.find({authorId: req.user._id}) 
+  console.log(req.user._id);
+  const blogs = await Blog.find({ authorId: req.user._id });
 
   return res.status(200).json({
     success: true,
@@ -27,7 +27,7 @@ const createBlog = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
   console.log(req.user);
 
-  if (!title || !description ) {
+  if (!title || !description) {
     throw new ApiError("Please provide title and description.", 400);
   }
 
@@ -37,13 +37,13 @@ const createBlog = asyncHandler(async (req, res) => {
     userAvatarUrl: req.user.avatar,
     authorId: req.user._id,
     firstName: req.user.firstName,
-    lastName: req.user.lastName
+    lastName: req.user.lastName,
   });
 
   return res.status(201).json({
     success: true,
     message: "Blog created successfully",
-    blog
+    blog,
   });
 });
 
@@ -76,4 +76,21 @@ const deleteBlog = asyncHandler(async (req, res) => {
   });
 });
 
-export { getAllBlogs, createBlog, updateBlog, deleteBlog, getLoginUserBlogs };
+const getAllBlogsByUserId = asyncHandler(async (req, res) => {
+  const blogs = await Blog.find({ authorId: req.params.id });
+  return res.status(200).json({
+    success: true,
+    results: blogs.length,
+    message: "Blogs fetched successfully",
+    blogs,
+  });
+});
+
+export {
+  getAllBlogs,
+  createBlog,
+  updateBlog,
+  deleteBlog,
+  getLoginUserBlogs,
+  getAllBlogsByUserId,
+};

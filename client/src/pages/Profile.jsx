@@ -52,8 +52,8 @@ const Profile = () => {
           </div>
         </div>
       ) : (
-        <progress className="progress flex mt-[200px] ml-[550px] w-56"></progress>
-      )}
+        <span className="loading loading-spinner mt-[200px] ml-[600px] loading-lg"></span>
+)}
     </>
   );
 };

@@ -101,8 +101,6 @@ const Dashboard = () => {
   const handleSubmit = (event) => {
     setLoading(true);
     event.preventDefault();
-    console.log(title.current.value);
-    console.log(description.current.value);
     const token = localStorage.getItem("token");
     if (token) {
       axios
@@ -131,6 +129,8 @@ const Dashboard = () => {
     } else {
       navigate("/home");
     }
+    title.current.value = "";
+    description.current.value = "";
   };
 
   console.log(blogs);

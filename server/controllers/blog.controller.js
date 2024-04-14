@@ -1,7 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import Blog from "../models/blog.model.js";
-import { request } from "express";
 
 const getLoginUserBlogs = asyncHandler(async (req, res) => {
 console.log(req.user._id);
@@ -37,12 +36,14 @@ const createBlog = asyncHandler(async (req, res) => {
     description,
     userAvatarUrl: req.user.avatar,
     authorId: req.user._id,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName
   });
 
   return res.status(201).json({
     success: true,
     message: "Blog created successfully",
-    blog,
+    blog
   });
 });
 

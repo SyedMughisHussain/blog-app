@@ -36,7 +36,7 @@ const Header = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    navigate("/home");
   };
 
   return (

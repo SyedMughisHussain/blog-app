@@ -14,7 +14,7 @@ const DetailUserBlogs = () => {
   const getAllBlogsByUserId = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:3000/api/v1/blog/${id}`)
+      .get(`http://localhost:3000/api/v1/blog/getAllBlogsByUserId/${id}`)
       .then((res) => {
         setAllBlogs(res.data.blogs);
       })

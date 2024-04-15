@@ -11,6 +11,9 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const title = useRef();
+  const description = useRef();
+
   const showToastMessage = () =>
     toast.success("Blog Deleted Successfully!", {
       position: "top-right",
@@ -71,20 +74,21 @@ const Dashboard = () => {
     }
   };
 
-  const getBlogs = async () => {
+  const getBlogs = () => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
         .get("http://localhost:3000/api/v1/blog/getLoginUserBlogs", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
           setBlogs(res.data.blogs);
+          console.log(res.data.blogs);
         })
         .catch((err) => {
-          console.log(err);
+          console.log("Error: ",err);
         });
     } else {
       navigate("/home");
@@ -94,9 +98,6 @@ const Dashboard = () => {
   useEffect(() => {
     getBlogs();
   }, []);
-
-  const title = useRef();
-  const description = useRef();
 
   const handleSubmit = (event) => {
     setLoading(true);

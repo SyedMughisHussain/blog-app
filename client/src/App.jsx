@@ -8,13 +8,15 @@ import Profile from "./pages/Profile";
 import DetailUserBlogs from "./pages/DetailUserBlogs";
 
 const App = () => {
+  const token = localStorage.getItem("token");
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignUp />} />
-        <Route path="/login" element={<SignIn />} />
+        <Route path="/" element={!token ? <HomeBlogs /> : <Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<SignIn />} />
         <Route path="/home" element={<HomeBlogs />} />
         <Route path="/detailuserblogs/:id" element={<DetailUserBlogs />} />
         <Route path="*" element={<h1>404 Page Not Found</h1>} />

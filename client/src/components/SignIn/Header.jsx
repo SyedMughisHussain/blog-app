@@ -10,7 +10,7 @@ const Header = () => {
         </a>
       </div>
       <div className="navbar-end">
-        <Link to={"/"} className="text-white md:mr-10">SignUp</Link>
+        <Link to={"/signup"} className="text-white md:mr-10">SignUp</Link>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import connectDb from "./db/connectDb.js";
 
 import blogRoutes from "./routes/blog.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -30,4 +31,13 @@ app.get("/", (req, res) => {
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/auth", userRoutes);
 
-export default app;
+connectDb()
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`Example app listening on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Error:", err);
+  });
+

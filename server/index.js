@@ -20,6 +20,13 @@ app.use(cors({
 app.use(express.static("public"));
 app.use(cookieParser())
 
+app.get("/", (req, res) => {
+  return res.status(200).json({
+    success: true,
+    message: "Hello World",
+  });
+});
+
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/auth", userRoutes);
 

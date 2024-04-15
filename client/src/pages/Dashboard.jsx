@@ -145,7 +145,7 @@ const Dashboard = () => {
             <input
               type="text"
               required
-              minLength={50}
+              minLength={30}
               ref={title}
               placeholder="Title"
               className="input input-bordered input-primary w-full mb-3"
